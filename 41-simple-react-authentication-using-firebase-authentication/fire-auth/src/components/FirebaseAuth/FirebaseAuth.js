@@ -57,7 +57,7 @@ const FirebaseAuth = () => {
 	};
 
 	return (
-		<div>
+		<div className="m-5">
 			<button onClick={handleSignIn} className="btn btn-outline-info btn-lg">
 				Sign In
 			</button>
