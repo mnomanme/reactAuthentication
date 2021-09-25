@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
 import firebaseConfig from '../../firebase.config';
 
 const FirebaseAuth = () => {
@@ -56,11 +56,34 @@ const FirebaseAuth = () => {
 			});
 	};
 
+	const handleSignOut = () => {
+		const auth = getAuth();
+		signOut(auth)
+			.then(() => {
+				const signedOutUser = {
+					isSignedIn: false,
+					name: '',
+					email: '',
+					photoURL: '',
+				};
+				setUser(signedOutUser);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
 	return (
 		<div className="m-5">
-			<button onClick={handleSignIn} className="btn btn-outline-info btn-lg">
-				Sign In
-			</button>
+			{user.isSignedIn ? (
+				<button onClick={handleSignOut} className="btn btn-outline-info btn-lg">
+					Sign Out
+				</button>
+			) : (
+				<button onClick={handleSignIn} className="btn btn-outline-info btn-lg">
+					Sign In
+				</button>
+			)}
 			{user.isSignedIn ? (
 				<section>
 					<h2>Welcome, {user.name}</h2>
