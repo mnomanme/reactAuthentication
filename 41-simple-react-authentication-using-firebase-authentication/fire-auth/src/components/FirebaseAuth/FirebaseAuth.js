@@ -16,6 +16,7 @@ const FirebaseAuth = () => {
 		photoURL: '',
 	});
 
+	// sign in user
 	const handleSignIn = () => {
 		console.log('sign in');
 
@@ -56,7 +57,9 @@ const FirebaseAuth = () => {
 			});
 	};
 
+	// sign out user
 	const handleSignOut = () => {
+		console.log('sign out');
 		const auth = getAuth();
 		signOut(auth)
 			.then(() => {
