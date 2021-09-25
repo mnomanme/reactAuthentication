@@ -99,7 +99,7 @@ const FirebaseAuth = () => {
 			)}
 			<br />
 			<section className="my-5">
-				<AuthRegister />
+				<AuthRegister user={user} setUser={setUser} />
 			</section>
 		</div>
 	);
