@@ -1,9 +1,11 @@
-import React from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const AuthRegister = (props) => {
 	// console.log(props);
 	// console.log(props.user);
+
+	const [newUser, setNewUser] = useState(false);
 
 	const user = props.user;
 	const setUser = props.setUser;
@@ -12,9 +14,25 @@ const AuthRegister = (props) => {
 		// console.log('submit');
 		// console.log('form submit', user.email, user.password);
 
-		if (user.email && user.password) {
+		if (newUser && user.email && user.password) {
 			const auth = getAuth();
 			createUserWithEmailAndPassword(auth, user.email, user.password)
+				.then((res) => {
+					const newUserInfo = { ...user };
+					newUserInfo.error = '';
+					newUserInfo.success = true;
+					setUser(newUserInfo);
+				})
+				.catch((error) => {
+					const newUserInfo = { ...user };
+					newUserInfo.error = error.message;
+					newUserInfo.success = false;
+					setUser(newUserInfo);
+				});
+		}
+		if (!newUser && user.email && user.password) {
+			const auth = getAuth();
+			signInWithEmailAndPassword(auth, user.email, user.password)
 				.then((res) => {
 					const newUserInfo = { ...user };
 					newUserInfo.error = '';
@@ -58,12 +76,16 @@ const AuthRegister = (props) => {
 	return (
 		<section>
 			<h2>Our Own Authentication</h2>
+
 			<p>Name: {user.name}</p>
 			<p>Email: {user.email}</p>
 			<p>Password: {user.password}</p>
 			<br />
+			<input onChange={() => setNewUser(!newUser)} type="checkbox" name="newUser" id="" />
+			<label htmlFor="newUser">New User Sign Up</label>
+
 			<form onSubmit={handleSubmit}>
-				<input onBlur={handleBlur} type="text" name="name" id="" placeholder="your name" className="form-control mx-auto w-25" />
+				{newUser && <input onBlur={handleBlur} type="text" name="name" id="" placeholder="your name" className="form-control mx-auto w-25" />}
 				<br />
 				<input onBlur={handleBlur} type="text" name="email" id="" placeholder="your email" className="form-control mx-auto w-25" required />
 				<br />
@@ -73,7 +95,7 @@ const AuthRegister = (props) => {
 			</form>
 			<br />
 			<p className="text-danger">{user.error}</p>
-			{user.success && <p className="text-success">User Created Successfully</p>}
+			{user.success && <p className="text-success">User {newUser ? 'Created' : 'Logged In'} Successfully</p>}
 		</section>
 	);
 };
