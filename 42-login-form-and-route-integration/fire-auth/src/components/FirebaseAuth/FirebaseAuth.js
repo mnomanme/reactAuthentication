@@ -36,25 +36,9 @@ const FirebaseAuth = () => {
 					photoURL: photoURL,
 				};
 				setUser(signedInUser);
-
-				const credential = GoogleAuthProvider.credentialFromResult(result);
-				console.log(credential);
-				const token = credential.accessToken;
-				console.log(token);
-				const user = result.user;
-				console.log(user);
 			})
 			.catch((error) => {
 				console.log(error);
-
-				const errorCode = error.code;
-				console.log(errorCode);
-				const errorMessage = error.message;
-				console.log(errorMessage);
-				const email = error.email;
-				console.log(email);
-				const credential = GoogleAuthProvider.credentialFromError(error);
-				console.log(credential);
 			});
 	};
 

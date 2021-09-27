@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const AuthRegister = (props) => {
 	// console.log(props);
 	// console.log(props.user);
-
 	const [newUser, setNewUser] = useState(false);
 
 	const user = props.user;
@@ -22,6 +21,7 @@ const AuthRegister = (props) => {
 					newUserInfo.error = '';
 					newUserInfo.success = true;
 					setUser(newUserInfo);
+					updateUserName(user.name);
 				})
 				.catch((error) => {
 					const newUserInfo = { ...user };
@@ -30,6 +30,7 @@ const AuthRegister = (props) => {
 					setUser(newUserInfo);
 				});
 		}
+
 		if (!newUser && user.email && user.password) {
 			const auth = getAuth();
 			signInWithEmailAndPassword(auth, user.email, user.password)
@@ -38,6 +39,7 @@ const AuthRegister = (props) => {
 					newUserInfo.error = '';
 					newUserInfo.success = true;
 					setUser(newUserInfo);
+					console.log('sign in user info', res.user);
 				})
 				.catch((error) => {
 					const newUserInfo = { ...user };
@@ -54,23 +56,36 @@ const AuthRegister = (props) => {
 		let isFieldValid = true;
 
 		if (event.target.name === 'email') {
+			isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
 			// const isEmailValid = /\S+@\S+\.\S+/.test(event.target.value);
 			// console.log(isEmailValid);
-			isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
 		}
 		if (event.target.name === 'password') {
 			const isPasswordValid = event.target.value.length > 6;
-			// console.log(isPasswordValid);
 			const passHasNumber = /\d{1}/.test(event.target.value);
-			// console.log(isPasswordValid && passHasNumber);
 			isFieldValid = isPasswordValid && passHasNumber;
+			// console.log(isPasswordValid);
+			// console.log(isPasswordValid && passHasNumber);
 		}
 		if (isFieldValid) {
 			const newUserInfo = { ...user };
-			// console.log(newUserInfo);
 			newUserInfo[event.target.name] = event.target.value;
 			setUser(newUserInfo);
+			// console.log(newUserInfo);
 		}
+	};
+
+	const updateUserName = (name) => {
+		const auth = getAuth();
+		updateProfile(auth.currentUser, {
+			displayName: name,
+		})
+			.then(() => {
+				console.log('user name updated successfully');
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	return (
@@ -91,7 +106,7 @@ const AuthRegister = (props) => {
 				<br />
 				<input onBlur={handleBlur} type="password" name="password" id="" placeholder="your password" className="form-control mx-auto w-25" required />
 				<br />
-				<input className="btn btn-info" type="submit" value="Submit" />
+				<input className="btn btn-info" type="submit" value={newUser ? 'Sign up' : 'Sign in'} />
 			</form>
 			<br />
 			<p className="text-danger">{user.error}</p>
