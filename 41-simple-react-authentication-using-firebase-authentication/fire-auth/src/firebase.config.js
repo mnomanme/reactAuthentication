@@ -1,10 +1,10 @@
 const firebaseConfig = {
-	apiKey: 'AIzaSyAUnPgmv9m__xFGrOldjjGDTOLDk0NOXqo',
-	authDomain: 'ema-john-auth-v4.firebaseapp.com',
-	projectId: 'ema-john-auth-v4',
-	storageBucket: 'ema-john-auth-v4.appspot.com',
-	messagingSenderId: '829538960669',
-	appId: '1:829538960669:web:46d24b2c8e94c5b185cdf4',
+	apiKey: 'AIzaSyDaUBgP7fNUXoNlAjbSQ13GNSAH8l22p6E',
+	authDomain: 'test-fire-auth1.firebaseapp.com',
+	projectId: 'test-fire-auth1',
+	storageBucket: 'test-fire-auth1.appspot.com',
+	messagingSenderId: '371033531884',
+	appId: '1:371033531884:web:baa313037ea1e93ea10cc9',
 };
 
 export default firebaseConfig;
