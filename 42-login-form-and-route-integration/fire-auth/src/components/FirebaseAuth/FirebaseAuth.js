@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, FacebookAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
 import firebaseConfig from '../../firebase.config';
 import AuthRegister from '../AuthRegister/AuthRegister';
 
@@ -9,7 +9,6 @@ const FirebaseAuth = () => {
 	console.log(app);
 
 	const provider = new GoogleAuthProvider();
-	const facebookProvider = new FacebookAuthProvider();
 
 	const [user, setUser] = useState({
 		isSignedIn: false,
@@ -64,20 +63,6 @@ const FirebaseAuth = () => {
 			});
 	};
 
-	// facebook sign in
-	const handleFbSignIn = () => {
-		const auth = getAuth();
-		signInWithPopup(auth, facebookProvider)
-			.then((result) => {
-				// The signed-in user info.
-				const user = result.user;
-				console.log(user);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
-
 	return (
 		<div className="m-2">
 			{user.isSignedIn ? (
@@ -90,9 +75,6 @@ const FirebaseAuth = () => {
 				</button>
 			)}
 			<br />
-			<button onClick={handleFbSignIn} className="btn btn-outline-info btn-lg mt-2">
-				Sign In Facebook
-			</button>
 			{user.isSignedIn ? (
 				<section>
 					<h2>Welcome, {user.name}</h2>
