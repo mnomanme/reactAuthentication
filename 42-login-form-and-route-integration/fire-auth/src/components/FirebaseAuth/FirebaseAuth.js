@@ -69,6 +69,8 @@ const FirebaseAuth = () => {
 					name: '',
 					email: '',
 					photoURL: '',
+					error: '',
+					success: false,
 				};
 				setUser(signedOutUser);
 			})
@@ -98,7 +100,7 @@ const FirebaseAuth = () => {
 				false
 			)}
 			<br />
-			<section className="my-5">
+			<section className="my-2">
 				<AuthRegister user={user} setUser={setUser} />
 			</section>
 		</div>
