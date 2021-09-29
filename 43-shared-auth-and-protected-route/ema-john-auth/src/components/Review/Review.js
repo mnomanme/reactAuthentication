@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import fakeData from '../../resources/fakeData';
@@ -12,12 +13,11 @@ const Review = () => {
 
 	const [orderPlaced, setOrderPlaced] = useState(false);
 
+	const history = useHistory();
+
 	// place order button handle
-	const handlePlaceOrder = () => {
-		console.log('order is now placed');
-		setReviewCart([]);
-		setOrderPlaced(true);
-		processOrder();
+	const handleProceedCheckout = () => {
+		history.push('/shipment');
 	};
 
 	// remove product review item
@@ -65,9 +65,9 @@ const Review = () => {
 			</section>
 			<section className="cartContainer">
 				<Cart cart={reviewCart}>
-					<Link to="/review">
-						<Button onClick={handlePlaceOrder} variant="outline-info" size="md">
-							Place your Order
+					<Link to="/shipment">
+						<Button onClick={handleProceedCheckout} variant="outline-info" size="md">
+							Proceed Checkout
 						</Button>
 					</Link>
 				</Cart>
