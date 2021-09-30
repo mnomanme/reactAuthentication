@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
+import { userContext } from '../Layouts/Layouts';
 import AuthRegister from './AuthRegister';
 import firebaseConfig from './firebase.config';
 
@@ -16,6 +17,9 @@ const Login = () => {
 		email: '',
 		photoURL: '',
 	});
+
+	// context API
+	const [loggedInUser, setLoggedInUser] = useContext(userContext);
 
 	// google sign in user
 	const handleSignIn = () => {
@@ -36,6 +40,7 @@ const Login = () => {
 					photoURL: photoURL,
 				};
 				setUser(signedInUser);
+				setLoggedInUser();
 			})
 			.catch((error) => {
 				console.log(error);
@@ -86,7 +91,7 @@ const Login = () => {
 			)}
 			<br />
 			<section className="my-2">
-				<AuthRegister user={user} setUser={setUser} />
+				<AuthRegister user={user} setUser={setUser} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
 			</section>
 		</section>
 	);

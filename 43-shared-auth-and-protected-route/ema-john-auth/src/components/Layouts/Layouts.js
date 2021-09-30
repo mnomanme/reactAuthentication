@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import Header from '../Header/Header';
 import Shop from '../Shop/Shop';
 import Review from '../Review/Review';
@@ -8,10 +8,17 @@ import NotFound from '../NotFound/NotFound';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import Shipment from '../Shipment/Shipment';
 import Login from '../Login/Login';
+import { Container } from 'react-bootstrap';
+
+export const userContext = createContext();
 
 const Layouts = () => {
+	const [loggedInUser, setLoggedInUser] = useState({});
 	return (
-		<>
+		<userContext.Provider value={[loggedInUser, setLoggedInUser]}>
+			<Container>
+				<h5 className="bg-info rounded text-center">email: {loggedInUser.email}</h5>
+			</Container>
 			<Header />
 			<Router>
 				<Switch>
@@ -41,7 +48,7 @@ const Layouts = () => {
 					</Route>
 				</Switch>
 			</Router>
-		</>
+		</userContext.Provider>
 	);
 };
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { Container } from 'react-bootstrap';
 
 const AuthRegister = (props) => {
 	// console.log(props);
@@ -9,6 +8,9 @@ const AuthRegister = (props) => {
 
 	const user = props.user;
 	const setUser = props.setUser;
+
+	const loggedInUser = props.loggedInUser;
+	const setLoggedInUser = props.setLoggedInUser;
 
 	const handleSubmit = (e) => {
 		// console.log('submit');
@@ -40,6 +42,7 @@ const AuthRegister = (props) => {
 					newUserInfo.error = '';
 					newUserInfo.success = true;
 					setUser(newUserInfo);
+					setLoggedInUser(newUserInfo);
 					console.log('sign in user info', res.user);
 				})
 				.catch((error) => {
