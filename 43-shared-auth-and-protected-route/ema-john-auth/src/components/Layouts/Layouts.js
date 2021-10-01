@@ -10,6 +10,7 @@ import ProductDetails from '../ProductDetails/ProductDetails';
 import Shipment from '../Shipment/Shipment';
 import Login from '../Login/Login';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import AuthLogin from '../Login/AuthLogin';
 
 export const userContext = createContext();
 
@@ -33,7 +34,7 @@ const Layouts = () => {
 						<ManageInventory />
 					</PrivateRoute>
 					<Route path="/login">
-						<Login />
+						<AuthLogin />
 					</Route>
 					<PrivateRoute path="/shipment">
 						<Shipment />
