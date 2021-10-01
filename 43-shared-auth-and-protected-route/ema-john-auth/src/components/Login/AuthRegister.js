@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { useHistory, useLocation } from 'react-router';
 
 const AuthRegister = (props) => {
 	// console.log(props);
@@ -11,6 +12,11 @@ const AuthRegister = (props) => {
 
 	const loggedInUser = props.loggedInUser;
 	const setLoggedInUser = props.setLoggedInUser;
+
+	const history = useHistory();
+	const location = useLocation();
+
+	let { from } = location.state || { from: { pathname: '/' } };
 
 	const handleSubmit = (e) => {
 		// console.log('submit');
@@ -43,6 +49,7 @@ const AuthRegister = (props) => {
 					newUserInfo.success = true;
 					setUser(newUserInfo);
 					setLoggedInUser(newUserInfo);
+					history.replace(from);
 					console.log('sign in user info', res.user);
 				})
 				.catch((error) => {
