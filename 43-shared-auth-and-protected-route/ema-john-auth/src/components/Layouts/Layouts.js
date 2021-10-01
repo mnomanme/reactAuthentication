@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { createContext, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import Header from '../Header/Header';
 import Shop from '../Shop/Shop';
 import Review from '../Review/Review';
@@ -8,7 +9,7 @@ import NotFound from '../NotFound/NotFound';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import Shipment from '../Shipment/Shipment';
 import Login from '../Login/Login';
-import { Container } from 'react-bootstrap';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 export const userContext = createContext();
 
@@ -28,15 +29,15 @@ const Layouts = () => {
 					<Route path="/review">
 						<Review />
 					</Route>
-					<Route path="/inventory">
+					<PrivateRoute path="/inventory">
 						<ManageInventory />
-					</Route>
+					</PrivateRoute>
 					<Route path="/login">
 						<Login />
 					</Route>
-					<Route path="/shipment">
+					<PrivateRoute path="/shipment">
 						<Shipment />
-					</Route>
+					</PrivateRoute>
 					<Route exact path="/">
 						<Shop />
 					</Route>
