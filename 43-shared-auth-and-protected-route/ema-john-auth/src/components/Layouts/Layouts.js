@@ -17,11 +17,11 @@ const Layouts = () => {
 	const [loggedInUser, setLoggedInUser] = useState({});
 	return (
 		<userContext.Provider value={[loggedInUser, setLoggedInUser]}>
-			<Container>
-				<h5 className="bg-info rounded text-center">email: {loggedInUser.email}</h5>
-			</Container>
-			<Header />
 			<Router>
+				<Container>
+					<h5 className="bg-info rounded text-center">email: {loggedInUser.email}</h5>
+				</Container>
+				<Header />
 				<Switch>
 					<Route path="/shop">
 						<Shop />
