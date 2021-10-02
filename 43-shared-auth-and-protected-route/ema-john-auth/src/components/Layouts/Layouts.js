@@ -20,7 +20,7 @@ const Layouts = () => {
 		<userContext.Provider value={[loggedInUser, setLoggedInUser]}>
 			<Router>
 				<Container>
-					<h5 className="bg-info rounded text-center">email: {loggedInUser.email}</h5>
+					<h5 className="bg-info rounded text-center">email: {loggedInUser?.email}</h5>
 				</Container>
 				<Header />
 				<Switch>
@@ -34,7 +34,8 @@ const Layouts = () => {
 						<ManageInventory />
 					</PrivateRoute>
 					<Route path="/login">
-						<AuthLogin />
+						<Login />
+						{/* <AuthLogin /> */}
 					</Route>
 					<PrivateRoute path="/shipment">
 						<Shipment />
