@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import Layout from './components/Layout/Layout';
 
 const App = () => {
 	return (
 		<>
 			<h1>City Travel</h1>
+			<Layout />
 		</>
 	);
 };
