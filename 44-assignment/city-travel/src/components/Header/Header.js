@@ -1,9 +1,12 @@
-import React from 'react';
-import { Container, Button } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Container, Button, Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { userContext } from '../Layout/Layout';
 import './Header.css';
 
 const Header = () => {
+	const [loggedInUser, setLoggedInUser] = useContext(userContext);
+
 	return (
 		<Container className="header">
 			<nav>
@@ -11,9 +14,17 @@ const Header = () => {
 				<Link to="/destination">Destination</Link>
 				<Link to="/blog">Blog</Link>
 				<Link to="/contact">Contact</Link>
-				<Button onClick="/" variant="outline-warning " size="lg">
-					Log In
-				</Button>
+				{loggedInUser?.email ? (
+					<Button onClick={() => setLoggedInUser()} variant="outline-danger " size="lg">
+						Log Out
+					</Button>
+				) : (
+					<Link to="/login">
+						<Button variant="outline-success" size="lg">
+							Log In
+						</Button>
+					</Link>
+				)}
 			</nav>
 		</Container>
 	);

@@ -14,7 +14,6 @@ nav a {
 	margin-right: 20px;
 	padding: 10px;
 }
-nav a:hover {
-	background-color: burlywood;
+nav :hover {
 	color: ghostwhite;
 }
