@@ -11,7 +11,7 @@
     "bootstrap": "^5.1.1",
     "clsx": "^1.1.1",
     "clx": "^1.0.0",
-    "firebase": "^7.24.0",
+    "firebase": "9.1.1",
     "react": "^16.13.1",
     "react-bootstrap": "^2.0.0-rc.0",
     "react-dom": "^16.13.1",
