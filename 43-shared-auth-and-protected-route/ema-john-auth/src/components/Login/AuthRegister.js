@@ -30,7 +30,9 @@ const AuthRegister = (props) => {
 					newUserInfo.error = '';
 					newUserInfo.success = true;
 					setUser(newUserInfo);
+					setLoggedInUser(newUserInfo);
 					updateUserName(user.name);
+					history.replace(from);
 				})
 				.catch((error) => {
 					const newUserInfo = { ...user };
