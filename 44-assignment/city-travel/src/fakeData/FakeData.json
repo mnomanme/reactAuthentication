@@ -1,8 +1,8 @@
 [
 	{
 		"id": 1,
+		"title": "Bike",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Frame_f9b5gh.png",
-		"timing": "1 month",
 		"capacity": 2,
 		"avatar": "B",
 		"price": 110
@@ -11,7 +11,6 @@
 		"id": 2,
 		"title": "Car",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Frame-2_rizhow.png",
-		"timing": 1,
 		"capacity": 4,
 		"avatar": "C",
 		"price": 220
@@ -20,7 +19,6 @@
 		"id": 3,
 		"title": "Train",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Group_esynlh.png",
-		"timing": 2,
 		"capacity": 2000,
 		"avatar": "T",
 		"price": 656
@@ -29,7 +27,6 @@
 		"id": 4,
 		"title": "Bus",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Frame-1_rfqqyo.png",
-		"timing": 2,
 		"capacity": 100,
 		"avatar": "B",
 		"price": 480
