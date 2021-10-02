@@ -38,6 +38,9 @@ const Layout = () => {
 					<Route path="/login">
 						<Login />
 					</Route>
+					<Route exact path="/">
+						<Home />
+					</Route>
 					<Route exact path="*">
 						<NotMatch />
 					</Route>
