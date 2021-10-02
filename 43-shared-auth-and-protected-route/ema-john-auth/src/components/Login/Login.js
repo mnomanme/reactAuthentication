@@ -40,7 +40,7 @@ const Login = () => {
 					photoURL: photoURL,
 				};
 				setUser(signedInUser);
-				setLoggedInUser();
+				setLoggedInUser(signedInUser);
 			})
 			.catch((error) => {
 				console.log(error);
