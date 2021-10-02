@@ -3,7 +3,7 @@ import { Card, Col } from 'react-bootstrap';
 import './Transports.css';
 
 const Transports = (props) => {
-	const { title, capacity, imgUrl, price, avatar } = props.vehicle;
+	const { title, imgUrl } = props.vehicle;
 
 	return (
 		<Col lg={4} md={6} xs={12} className="vehicle">
