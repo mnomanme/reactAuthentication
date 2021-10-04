@@ -1,7 +1,7 @@
 [
 	{
 		"id": 1,
-		"title": "Bike",
+		"type": "Bike",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Frame_f9b5gh.png",
 		"capacity": 2,
 		"avatar": "B",
@@ -9,7 +9,7 @@
 	},
 	{
 		"id": 2,
-		"title": "Car",
+		"type": "Car",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Frame-2_rizhow.png",
 		"capacity": 4,
 		"avatar": "C",
@@ -17,7 +17,7 @@
 	},
 	{
 		"id": 3,
-		"title": "Train",
+		"type": "Train",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Group_esynlh.png",
 		"capacity": 2000,
 		"avatar": "T",
@@ -25,7 +25,7 @@
 	},
 	{
 		"id": 4,
-		"title": "Bus",
+		"type": "Bus",
 		"imgUrl": "https://res.cloudinary.com/df10upon6/image/upload/v1633179598/Frame-1_rfqqyo.png",
 		"capacity": 100,
 		"avatar": "B",
