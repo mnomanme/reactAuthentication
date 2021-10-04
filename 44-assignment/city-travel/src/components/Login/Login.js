@@ -1,28 +1,34 @@
 import React, { useContext, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { userContext } from '../Layout/Layout';
+import { Button } from 'react-bootstrap';
 import AuthRegister from './AuthRegister';
 import firebaseConfig from './firebase.config';
-import { userContext } from '../Layout/Layout';
 
 const Login = () => {
-	const app = initializeApp(firebaseConfig);
-	console.log(app);
-
-	const googleProvider = new GoogleAuthProvider();
+	// context API
+	const [loggedInUser, setLoggedInUser] = useContext(userContext);
 
 	const [user, setUser] = useState({
 		isSignedIn: false,
 		name: '',
 		email: '',
-		photoURL: '',
+		photo: '',
 	});
 
-	// context API
-	const [loggedInUser, setLoggedInUser] = useContext(userContext);
+	const app = initializeApp(firebaseConfig);
+	console.log(app);
+
+	const googleProvider = new GoogleAuthProvider();
+
+	const history = useHistory();
+	const location = useLocation();
+	let { from } = location.state || { from: { pathname: '/' } };
 
 	// google sign in user
-	const handleSignIn = () => {
+	const handleGoogleSignIn = () => {
 		console.log('sign in');
 
 		// Authenticate with Firebase using the Google provider object
@@ -30,38 +36,9 @@ const Login = () => {
 		signInWithPopup(auth, googleProvider)
 			.then((result) => {
 				console.log(result);
-				const { displayName, email, photoURL } = result.user;
-				console.log(displayName, email, photoURL);
 
-				const signedInUser = {
-					isSignedIn: true,
-					name: displayName,
-					email: email,
-					photoURL: photoURL,
-				};
-				setUser(signedInUser);
-				setLoggedInUser(signedInUser);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
-
-	// google sign out user
-	const handleSignOut = () => {
-		console.log('sign out');
-		const auth = getAuth();
-		signOut(auth)
-			.then(() => {
-				const signedOutUser = {
-					isSignedIn: false,
-					name: '',
-					email: '',
-					photoURL: '',
-					error: '',
-					success: false,
-				};
-				setUser(signedOutUser);
+				setLoggedInUser(result.user);
+				history.replace(from);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -70,29 +47,13 @@ const Login = () => {
 
 	return (
 		<section className="m-2 text-center">
-			{user?.isSignedIn ? (
-				<button onClick={handleSignOut} className="btn btn-outline-info btn-lg">
-					Google Sign Out
-				</button>
-			) : (
-				<button onClick={handleSignIn} className="btn btn-outline-info btn-lg">
-					Google Sign In
-				</button>
-			)}
-			<br />
-			{user?.isSignedIn ? (
-				<section>
-					<h2>Welcome, {user.name}</h2>
-					<p>Your email: {user.email}</p>
-					<img className="w-25" src={user.photoURL} alt="userPhoto" />
-				</section>
-			) : (
-				false
-			)}
-			<br />
 			<section className="my-2">
 				<AuthRegister user={user} setUser={setUser} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
 			</section>
+
+			<Button onClick={handleGoogleSignIn} variant="outline-info" size="lg">
+				Google Sign In
+			</Button>
 		</section>
 	);
 };
