@@ -14,7 +14,7 @@ const Home = () => {
 		<Container>
 			<Row>
 				{transport.map((vehicle) => {
-					return <Transports key={vehicle.id} vehicle={vehicle} />;
+					return <Transports key={vehicle.id} transport={vehicle} />;
 				})}
 			</Row>
 		</Container>
