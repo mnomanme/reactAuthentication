@@ -1,7 +1,7 @@
-import { getAuth, signOut } from '@firebase/auth';
 import React, { useContext } from 'react';
-import { Container, Button, Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { getAuth, signOut } from '@firebase/auth';
+import { Container, Button, Navbar, Nav } from 'react-bootstrap';
 import { userContext } from '../Layout/Layout';
 import './Header.css';
 
@@ -29,44 +29,6 @@ const Header = () => {
 
 	return (
 		<Container className="">
-			{/* <Navbar bg="light" expand="lg">
-				<Navbar.Brand>
-					<Link to="/">
-						<h3>City Ride</h3>
-					</Link>
-				</Navbar.Brand>
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav className="ml-auto">
-						<Link className="link" to="/">
-							Home
-						</Link>
-						<Link className="link" to="/destination">
-							Destination
-						</Link>
-						<Link className="link" to="/blog">
-							Blog
-						</Link>
-						<Link className="link" to="/contact">
-							Contact
-						</Link>
-						{loggedInUser.displayName ? (
-							<div>
-								<span className="fw-bold me-3 fs-5">{loggedInUser.displayName}</span>
-								<Button onClick={handleLogOut} variant="danger">
-									LogOut
-								</Button>
-							</div>
-						) : (
-							<Link className="link" to="/login">
-								<Button variant="success">Login</Button>
-							</Link>
-						)}
-					</Nav>
-				</Navbar.Collapse>
-			</Navbar> */}
-
-			{/*  */}
 			<Navbar bg="info" variant="dark">
 				<Container>
 					<Navbar.Brand>
