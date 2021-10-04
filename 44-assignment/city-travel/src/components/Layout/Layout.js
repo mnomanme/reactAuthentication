@@ -1,6 +1,5 @@
 import React, { createContext, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import { NotMatch } from '../NotMatch/NotMatch';
 import Blog from '../Blog/Blog';
 import Contact from '../Contact/Contact';
@@ -18,9 +17,6 @@ const Layout = () => {
 	return (
 		<userContext.Provider value={[loggedInUser, setLoggedInUser]}>
 			<Router>
-				<Container>
-					<h5 className="bg-info rounded text-center">email: {loggedInUser?.email}</h5>
-				</Container>
 				<Header />
 				<Switch>
 					<Route exact path="/home">
