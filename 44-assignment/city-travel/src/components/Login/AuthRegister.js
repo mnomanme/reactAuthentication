@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useHistory, useLocation } from 'react-router';
+import './Login.css';
 
 const AuthRegister = (props) => {
-	// console.log(props);
-	// console.log(props.user);
 	const [newUser, setNewUser] = useState(false);
 
 	const user = props.user;
 	const setUser = props.setUser;
 
-	const loggedInUser = props.loggedInUser;
+	// const loggedInUser = props.loggedInUser;
 	const setLoggedInUser = props.setLoggedInUser;
 
 	const history = useHistory();
@@ -18,41 +17,37 @@ const AuthRegister = (props) => {
 
 	let { from } = location.state || { from: { pathname: '/' } };
 
-	const handleSubmit = (e) => {
+	const handleFormSubmit = (e) => {
 		// console.log('submit');
 		// console.log('form submit', user.email, user.password);
 
-		if (newUser && user.email && user.password) {
+		if (newUser && user.email && user.password && user.confirmPassword && user.name) {
 			const auth = getAuth();
-			createUserWithEmailAndPassword(auth, user.email, user.password)
-				.then((res) => {
-					const newUserInfo = { ...user };
-					newUserInfo.error = '';
-					newUserInfo.success = true;
-					setUser(newUserInfo);
-					setLoggedInUser(newUserInfo);
-					updateUserName(user.name);
-					history.replace(from);
-				})
-				.catch((error) => {
-					const newUserInfo = { ...user };
-					newUserInfo.error = error.message;
-					newUserInfo.success = false;
-					setUser(newUserInfo);
-				});
+			if (user.password === user.confirmPassword && auth) {
+				createUserWithEmailAndPassword(auth, user.email, user.password)
+					.then((res) => {
+						updateProfile(auth.currentUser, {
+							displayName: user.name,
+						}).then(() => {
+							setLoggedInUser(res.user);
+							history.replace(from);
+						});
+					})
+					.catch((error) => {
+						const newUserInfo = { ...user };
+						newUserInfo.error = error.message;
+						newUserInfo.success = false;
+						setUser(newUserInfo);
+					});
+			}
 		}
 
 		if (!newUser && user.email && user.password) {
 			const auth = getAuth();
 			signInWithEmailAndPassword(auth, user.email, user.password)
 				.then((res) => {
-					const newUserInfo = { ...user };
-					newUserInfo.error = '';
-					newUserInfo.success = true;
-					setUser(newUserInfo);
-					setLoggedInUser(newUserInfo);
+					setLoggedInUser(res.user);
 					history.replace(from);
-					console.log('sign in user info', res.user);
 				})
 				.catch((error) => {
 					const newUserInfo = { ...user };
@@ -70,57 +65,60 @@ const AuthRegister = (props) => {
 
 		if (event.target.name === 'email') {
 			isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
-			// const isEmailValid = /\S+@\S+\.\S+/.test(event.target.value);
-			// console.log(isEmailValid);
 		}
 		if (event.target.name === 'password') {
 			const isPasswordValid = event.target.value.length > 6;
 			const passHasNumber = /\d{1}/.test(event.target.value);
 			isFieldValid = isPasswordValid && passHasNumber;
-			// console.log(isPasswordValid);
-			// console.log(isPasswordValid && passHasNumber);
 		}
 		if (isFieldValid) {
 			const newUserInfo = { ...user };
 			newUserInfo[event.target.name] = event.target.value;
 			setUser(newUserInfo);
-			// console.log(newUserInfo);
 		}
-	};
-
-	const updateUserName = (name) => {
-		const auth = getAuth();
-		updateProfile(auth.currentUser, {
-			displayName: name,
-		})
-			.then(() => {
-				console.log('user name updated successfully');
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 	};
 
 	return (
 		<>
-			<p>Name: {user.name}</p>
-			<p>Email: {user.email}</p>
-			<br />
-			<input onChange={() => setNewUser(!newUser)} type="checkbox" name="newUser" id="" />
-			<label htmlFor="newUser">New User Sign Up</label>
-
-			<form onSubmit={handleSubmit}>
-				{newUser && <input onBlur={handleBlur} type="text" name="name" id="" placeholder="your name" className="form-control mx-auto w-25" />}
-				<br />
-				<input onBlur={handleBlur} type="text" name="email" id="" placeholder="your email" className="form-control mx-auto w-25" required />
-				<br />
-				<input onBlur={handleBlur} type="password" name="password" id="" placeholder="your password" className="form-control mx-auto w-25" required />
-				<br />
-				<input className="btn btn-info" type="submit" value={newUser ? 'Sign up' : 'Sign in'} />
+			<form onSubmit={handleFormSubmit}>
+				{newUser ? (
+					<div className="form-control mx-auto w-75">
+						<h5 className="mb-4 text-center">Create an account</h5>
+						<input required type="text" name="name" onBlur={handleBlur} placeholder="Name" className="form-control mx-auto w-50" />
+						<br />
+						<input required type="email" name="email" onBlur={handleBlur} placeholder="Email" className="form-control mx-auto w-50" />
+						<br />
+						<input required type="password" name="password" onBlur={handleBlur} placeholder="Password" className="form-control mx-auto w-50" />
+						<br />
+						<input required type="password" name="confirmPassword" onBlur={handleBlur} placeholder="Confirm Password" className="form-control mx-auto w-50" />
+						<br />
+						<input type="submit" className="btn btn-danger mt-3 fs-5" value="Create an account" />
+						<p className="mt-3">
+							already have an account
+							<span className="text-primary m-1" onClick={() => setNewUser(false)}>
+								Sign in
+							</span>
+						</p>
+					</div>
+				) : (
+					<div className="form-control mx-auto w-75">
+						<h5 className="mb-4 text-center">Login</h5>
+						<input required type="email" name="email" onBlur={handleBlur} placeholder="Email" className="form-control mx-auto w-50" />
+						<br />
+						<input required type="password" name="password" onBlur={handleBlur} placeholder="Password" className="form-control mx-auto w-50" />
+						<input type="submit" className="btn btn-danger mt-3 fs-5" value="Login" />
+						<p className="mt-3">
+							Don't have an account
+							<span className="text-primary m-1" onClick={() => setNewUser(true)}>
+								Sign up
+							</span>
+						</p>
+					</div>
+				)}
 			</form>
-			<br />
-			<p className="text-danger">{user.error}</p>
-			{user.success && <p className="text-success">User {newUser ? 'Created' : 'Logged In'} Successfully</p>}
+			<div className="Horizontal d-flex justify-content-center mt-3">
+				<hr /> <h6 className="mx-3"> or </h6> <hr />
+			</div>
 		</>
 	);
 };
