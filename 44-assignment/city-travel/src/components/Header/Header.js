@@ -28,26 +28,34 @@ const Header = () => {
 	};
 
 	return (
-		<Container className="">
+		<Container>
 			<Navbar bg="info" variant="dark">
 				<Container>
 					<Navbar.Brand>
-						<Link to="/">
+						<Link to="/" className="Link">
 							<h3>City Ride</h3>
 						</Link>
 					</Navbar.Brand>
 					<Nav className="ml-auto">
 						<Nav.Link>
-							<Link to="/">Home</Link>
+							<Link to="/" className="Link">
+								Home
+							</Link>
 						</Nav.Link>
 						<Nav.Link>
-							<Link to="/destination">Destination</Link>
+							<Link to="/destination" className="Link">
+								Destination
+							</Link>
 						</Nav.Link>
 						<Nav.Link>
-							<Link to="/blog">Blog</Link>
+							<Link to="/blog" className="Link">
+								Blog
+							</Link>
 						</Nav.Link>
 						<Nav.Link>
-							<Link to="/contact">Contact</Link>
+							<Link to="/contact" className="Link">
+								Contact
+							</Link>
 						</Nav.Link>
 
 						{loggedInUser.displayName ? (

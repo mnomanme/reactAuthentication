@@ -1,0 +1,9 @@
+.Link {
+	text-decoration: none;
+	color: tomato;
+	font-size: 15px;
+}
+
+.Link:hover {
+	color: aliceblue;
+}
