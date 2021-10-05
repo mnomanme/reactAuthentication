@@ -16,25 +16,26 @@ const DirectionResults = (props) => {
 
 	return (
 		<Container>
-			<section className="w-75 bg-light p-2">
-				<div className="bg-danger rounded lead ps-4 fs-4">
-					<p>{directionRoute.origin}</p>
-					<p>{directionRoute.destination}</p>
-				</div>
-			</section>
-			<section>
-				{destinationRider.map((data) => {
-					const { imgUrl, type, price, capacity } = data;
-					return (
-						<section>
-							<img src={imgUrl} alt="" />
-							<h6>{type}</h6>
-							<FontAwesomeIcon icon={faUserFriends} />
-							<p>{capacity}</p>
-							<p>{price}</p>
-						</section>
-					);
-				})}
+			<section className="col-sm-4">
+				<section className="w-75 bg-info p-2 rounded">
+					<div className="bg-secondary rounded 	 text-center">
+						<p>{directionRoute.origin}</p>
+						<p>{directionRoute.destination}</p>
+					</div>
+
+					{destinationRider.map((data) => {
+						const { imgUrl, type, price, capacity } = data;
+						return (
+							<section className="d-flex justify-content-around">
+								<img src={imgUrl} alt="" className="w-25" />
+								<h6>{type}</h6>
+								<FontAwesomeIcon icon={faUserFriends} />
+								<p>{capacity}</p>
+								<p>{price}</p>
+							</section>
+						);
+					})}
+				</section>
 			</section>
 		</Container>
 	);
