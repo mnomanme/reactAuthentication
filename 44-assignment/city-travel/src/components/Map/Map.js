@@ -12,7 +12,7 @@ const Map = ({ origin, destination }) => {
 	const [directionResponse, setDirectionResponse] = useState(null);
 
 	const mapStyle = {
-		width: '100%',
+		width: '400px',
 		height: '400px',
 	};
 

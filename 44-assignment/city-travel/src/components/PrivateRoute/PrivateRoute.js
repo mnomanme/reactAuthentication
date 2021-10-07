@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router';
 import { userContext } from '../Layout/Layout';
 
 const PrivateRoute = ({ children, ...rest }) => {
-	const [loggedInUser, setLoggedInUser] = useContext(userContext);
+	const [loggedInUser] = useContext(userContext);
 
 	return (
 		<Route

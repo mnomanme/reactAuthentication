@@ -35,7 +35,7 @@ const Login = () => {
 		const auth = getAuth();
 		signInWithPopup(auth, googleProvider)
 			.then((result) => {
-				console.log(result);
+				// console.log(result);
 
 				setLoggedInUser(result.user);
 				history.replace(from);

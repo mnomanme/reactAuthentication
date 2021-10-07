@@ -1,12 +1,12 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, Col } from 'react-bootstrap';
 import './Transports.css';
 
 const Transports = (props) => {
 	const { type, imgUrl } = props.transport;
 
-	const history = useHistory();
+	// const history = useHistory();
 
 	// const handleTransport = (type) => {
 	// 	history.push(`/destination/${type}`);
