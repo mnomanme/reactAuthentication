@@ -12,34 +12,36 @@ const location = {
 	lng: -58.428471,
 };
 
-const Direction = () => {
+const Direction = ({ origin, destination }) => {
 	const [directionResponse, setDirectionResponse] = useState(null);
 
 	return (
 		<LoadScript googleMapsApiKey={GoogleMapAPIKEY}>
 			<GoogleMap mapContainerStyle={containerStyle} center={location} zoom={16}></GoogleMap>
-			<DirectionsService
-				// required
-				options={{
-					destination: 'Gulshan 1 Circle Dhaka Bangladesh',
-					origin: 'ECB Chattor Dhaka Bangladesh',
-					travelMode: 'DRIVING',
-				}}
-				// required
-				callback={(res) => {
-					if (res !== null) {
-						setDirectionResponse(res);
-					}
-				}}
-				// optional
-				onLoad={(directionsService) => {
-					console.log('DirectionsService onLoad directionsService: ', directionsService);
-				}}
-				// optional
-				onUnmount={(directionsService) => {
-					console.log('DirectionsService onUnmount directionsService: ', directionsService);
-				}}
-			/>
+			{origin !== '' && destination !== '' && (
+				<DirectionsService
+					// required
+					options={{
+						destination: destination,
+						origin: origin,
+						travelMode: 'DRIVING',
+					}}
+					// required
+					callback={(res) => {
+						if (res !== null) {
+							setDirectionResponse(res);
+						}
+					}}
+					// optional
+					onLoad={(directionsService) => {
+						console.log('DirectionsService onLoad directionsService: ', directionsService);
+					}}
+					// optional
+					onUnmount={(directionsService) => {
+						console.log('DirectionsService onUnmount directionsService: ', directionsService);
+					}}
+				/>
+			)}
 			{directionResponse && (
 				<DirectionsRenderer
 					// required
