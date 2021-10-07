@@ -1,11 +1,12 @@
 import React from 'react';
+import Direction from './components/Direction';
 import Map from './components/Map';
 
 const App = () => {
 	return (
 		<>
-			<h2>This is React</h2>
 			<Map />
+			<Direction />
 		</>
 	);
 };
